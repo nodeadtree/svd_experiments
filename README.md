@@ -10,5 +10,6 @@ First Idea
 ---------------
 Look at blob of some amount of raw vectors, using ideas from ICA, try to compare it with other
 generalizations of blobs. Use blob words, blob dotproducts, etc.
-Markup : ![picture alt](https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Emoji_u1f64b.svg/128px-Emoji_u1f64b.svg.png)
+
+![picture alt](https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Emoji_u1f64b.svg/128px-Emoji_u1f64b.svg.png)
 
