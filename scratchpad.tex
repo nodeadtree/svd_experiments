@@ -1,0 +1,83 @@
+\documentclass[11pt]{amsart}
+
+\usepackage{amsthm, amssymb,amsmath}
+\usepackage{graphicx}
+
+\theoremstyle{definition}  % Heading is bold, text is roman
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+
+\newcommand{\ojo}[1]{{\sffamily\bfseries\boldmath[#1]}}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+
+\newcommand{\nullspace}{\mathrm{null}}
+\newcommand{\rank}{\mathrm{rank}}
+
+\oddsidemargin 0pt
+\evensidemargin 0pt
+\marginparwidth 0pt
+\marginparsep 10pt
+\topmargin -10pt
+\headsep 10pt
+\textheight 8.4in
+\textwidth 7in
+
+%\input{header}
+
+
+\begin{document}
+\begin{section}{Training}
+We assume that we have k sets of $n_k$ training vectors in $\mathbb{R}^{m}$. This gives us an $m*n$ matrix for each particular class.
+For each of these matrices, we perform singular value decomposition, an
+	\begin{align*}
+		\text{Given }]\ &C_1,...C_k\\
+		\forall\ i\ \le k\ C_i &= \{v_1,...,v_{n_i}\\
+		\forall\ v\ \in\ C_i,\ v\ &\in \mathbb{R}^{m}\\
+		\text{We can construct the following}\ &m*n\ \text{matrix for each class}\\
+		A_i &= \begin{bmatrix}
+			\vline &...& \vline \\
+			v_{1_i}&...& v_{n_i}\\
+			\vline &...& \vline \\
+		\end{bmatrix}\\
+	\end{align*}
+	Using singular value decomposition, we obtain the following matrices.
+	\begin{align*}
+		A_i &= U_{A_i}\Sigma_{A_i}V^t_{A_i}\\
+	\end{align*}
+	We discard $V_{A_i}$ and are left with $U_{A_i}$ and the singular values. We rename $U_{A_i}$ to $M_i$, and save
+	the singular values in the set $S_1$, where $S_1={\sigma_1,...,\sigma_m}$
+	$M_1,...,M_k$ become our model. Note that we can choose some number less than $m$, finding that number
+	is a mysterious process though.
+\end{section}
+\begin{section}{Prediction}
+	Given our model $M_1,...,M_k$ and some number, $j$, of test vectors in $\mathbb{R}^m$, $u_1,...,u_j$, we look to minimize the
+	following equation over the parameter $l$, using the singular value decomposition of\\
+		$\begin{bmatrix}
+			\vline &...& \vline \\
+			u_{1_i}&...& v_{j_i}\\
+			\vline &...& \vline \\
+		\end{bmatrix}\\ = U_u\Sigma_uV^t_u$\\
+	From here, we examine the $m$ column vectors of $(U_u\Sigma_u)$, and each of the colum vectors of each of each of our
+	model matrices, $M_i$. From here, we look to minimize the difference between the length of the projection of the column vectors
+	of $(U_u\Sigma_u)$ onto the columns of $M_i$ and the singular values, $S_i$ using the following equation.
+	\begin{align*}
+		\sum_{q=1}^m (\langle M_{l_q},(U_u\Sigma_u)_{q}\rangle - \sigma_{l_q})^2\\
+		1 \le l \le k \\
+	\end{align*}
+	\begin{proof}
+		To show that this is minimized when the scaled singular vectors of our training set match the scaled singular vectors
+		of our test set, we assume that our criteria is minimized when these two sets of vectors do not match.
+		\begin{align*}
+			???????
+		\end{align*}
+	\end{proof}
+\end{section}{Prediction}
+
+\end{document}
