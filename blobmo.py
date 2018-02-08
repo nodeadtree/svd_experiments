@@ -17,12 +17,14 @@ class blobmo(object):
                 dataset[j] = list()
             dataset[j].append(i)
         for i in dataset:
+            dataset[i] = self.normalize(dataset[i])
             self.model[i] = np.linalg.svd(np.array(dataset[i]).T)
             self.model[i] = [np.matrix(self.model[i][0]), self.model[i][1]]
 
     #Makes prediction on a matrix
     def predict(self, vectors):
         projections = list()
+        vectors = self.normalize(vectors)
         sample = np.linalg.svd(vectors.T)
         singular_vectors = np.matrix(sample[0])
         for i in self.model:
@@ -39,8 +41,22 @@ class blobmo(object):
 
     #Normalizing function
     def normalize(self, vectors):
-        b = np.shape(vectors)
-        print(b)
+        average_length = 0
+        total = 0
+        for i in vectors:
+            average_length += np.linalg.norm(i)
+            total += 1
+        average_length = average_length / total
+        nu_vectors = list()
+        for i in vectors:
+            nu_vectors.append((i/average_length)-1)
+        nu_vectors = np.array(nu_vectors)
+        return nu_vectors
+
+
+        
+
+        
 
 class vector_bundler(object):
 
@@ -81,7 +97,10 @@ if __name__ == "__main__":
     #testing methods
     train_data = np.genfromtxt(a.train)
     train_data[:,0] = np.int_(train_data[:,0])
-    v = vector_bundler(train_data[:,1:9], train_data[:,0], 40)
+
+    test_data = np.genfromtxt(a.test)
+    test_data[:,0] = np.int_(test_data[:,0])
+    v = vector_bundler(test_data[:,1:9], test_data[:,0], 40)
     classifier.fit(train_data[:,1:9], train_data[:,0])
     correct = 0
     total = 0
